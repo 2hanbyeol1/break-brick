@@ -17,8 +17,8 @@ class App {
         this.ctx = this.canvas.getContext('2d');
         document.body.appendChild(this.canvas);
 
-        this.bricksRow = 10;
-        this.bricksCol = 7;
+        this.bricksRow = 5;
+        this.bricksCol = 2;
         this.bricks = new Bricks(this.bricksRow, this.bricksCol);
 
         window.addEventListener('resize', this.resize.bind(this), false);
@@ -41,11 +41,13 @@ class App {
         this.blockHeight = this.stageHeight * 0.03;
         this.interval = this.stageWidth * 0.015;
         this.ballRadius = this.stageWidth * 0.03;
+        this.ballX = this.stageWidth / 2;
+        this.ballY = this.stageHeight - 70 - this.ballRadius;
         this.blockWidth = this.stageWidth * 0.10;
         this.blockX = (this.stageWidth - this.blockWidth) / 2;
         this.blockY = this.stageHeight - 70;
 
-        this.ball = new Ball(this.stageWidth, this.stageHeight, this.ballRadius, this.ballSpeed);
+        this.ball = new Ball(this.ballX, this.ballY, this.ballRadius, this.ballSpeed);
         this.block = new Block(this.blockWidth, this.blockHeight, this.blockX, this.blockY);
         this.bricks.resize(this.stageWidth, this.stageHeight, this.interval);
     }
@@ -61,11 +63,18 @@ class App {
         this.ball.draw(this.ctx, this.stageWidth, this.stageHeight, this.block); // 다시 그려줌
         this.block.draw(this.ctx);
         this.bricks.draw(this.ctx, this.ball);
-        if(this.ball.gameOver(this.stageHeight)) {
-            window.removeEventListener('resize', this.resize.bind(this), false);
-            window.removeEventListener('keydown', this.keydown.bind(this), false);
-            if(this.bricks.broken == this.bricks.brickSize) alert('대박.. 혹시 프로게이머? 😯');
-            else alert('벽돌 ' + this.bricks.broken + '개 깨느라 수고하셨네요~😏\n다시 도전하고 싶다면? F5 or 새로고침');
+        let gameFinished = false;
+        let msg = "";
+        if(this.bricks.isEmpty()) {
+            msg = "대박.. 혹시 프로게이머? 😯"; gameFinished = true;
+        }
+        if(this.ball.touchBottom(this.stageHeight)) {
+            msg = "벽돌 " + this.bricks.broken + "개 깨느라 수고하셨네요~😏"; gameFinished = true;
+        }
+        if(gameFinished) {
+            if(confirm(msg + '\n재도전하시겠어요?')) {
+                location.reload();
+            }
         } else window.requestAnimationFrame(this.animate.bind(this));
     }
 }

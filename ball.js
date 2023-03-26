@@ -1,11 +1,10 @@
 export class Ball {
-    constructor(stageWidth, stageHeight, radius, speed) {
+    constructor(x, y, radius, speed) {
+        this.x = x;
+        this.y = y;
         this.radius = radius;
         this.vx = speed;
         this.vy = speed;
-
-        this.x = stageWidth / 2;
-        this.y = stageHeight - 70 - radius;
     }
 
     draw(ctx, stageWidth, stageHeight, block) {
@@ -35,7 +34,7 @@ export class Ball {
         }
     }
 
-    gameOver(stageHeight) {
+    touchBottom(stageHeight) {
         const maxY = stageHeight - this.radius;
         if (this.y >= maxY) return true;
     }

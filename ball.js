@@ -1,10 +1,10 @@
 export class Ball {
-    constructor(x, y, radius, speed) {
+    constructor(x, y, radius, xSpeed, ySpeed) {
         this.x = x;
         this.y = y;
         this.radius = radius;
-        this.vx = speed;
-        this.vy = speed;
+        this.vx = xSpeed;
+        this.vy = ySpeed;
     }
 
     draw(ctx, stageWidth, stageHeight, block) {

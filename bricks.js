@@ -30,12 +30,11 @@ export class Bricks {
     resize(stageWidth, stageHeight, interval) {
         this.brickWidth = (stageWidth - (interval * (this.row + 1))) / this.row;
         this.brickHeight = stageHeight * 0.03;
-        // this.brickX = ;
-        // this.brickY = ;
         for(let i = 0; i < this.brickSize; i++) {
-            this.bricks[i] = new Brick(this.brickWidth, this.brickHeight
-                , interval + (interval + this.brickWidth) * (i % this.row)
-                , interval + (interval + this.brickHeight) * parseInt(i / this.row));
+            this.brickX = interval + (interval + this.brickWidth) * (i % this.row);
+            this.brickY = interval + (interval + this.brickHeight) * parseInt(i / this.row);
+            this.bricks[i] = new Brick(this.brickWidth, this.brickHeight, this.brickX, this.brickY);
+
         }
     }
 }

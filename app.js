@@ -36,7 +36,8 @@ class App {
         this.canvas.height = this.stageHeight * 2;
         this.ctx.scale(2, 2);
 
-        this.ballSpeed = this.stageHeight * 0.006;
+        this.ballXSpeed = this.stageWidth * 0.006;
+        this.ballYSpeed = this.stageHeight * 0.006;
         this.blockSpeed = this.stageWidth * 0.05;
         this.blockHeight = this.stageHeight * 0.03;
         this.interval = this.stageWidth * 0.015;
@@ -47,7 +48,8 @@ class App {
         this.blockX = (this.stageWidth - this.blockWidth) / 2;
         this.blockY = this.stageHeight - 70;
 
-        this.ball = new Ball(this.ballX, this.ballY, this.ballRadius, this.ballSpeed);
+        this.bricks.broken = 0;
+        this.ball = new Ball(this.ballX, this.ballY, this.ballRadius, this.ballXSpeed, this.ballYSpeed);
         this.block = new Block(this.blockWidth, this.blockHeight, this.blockX, this.blockY);
         this.bricks.resize(this.stageWidth, this.stageHeight, this.interval);
     }
